@@ -32,7 +32,22 @@ export default function todosReducer(state = initialState, action) {
                     completed: !x.completed
                 }
             })
-
+        }
+        case 'todos/colorSelected': {
+            const { color, todoId } = action.payload
+            return state.map((todo) => {
+              if (todo.id !== todoId) {
+                return todo
+              }
+      
+              return {
+                ...todo,
+                color,
+              }
+            })
+        }
+        case 'todos/todoDeleted': {
+            return state.filter((todo) => todo.id !== action.payload)
         }
         default:
             return state;
